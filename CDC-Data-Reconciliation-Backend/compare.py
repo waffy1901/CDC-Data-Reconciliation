@@ -59,7 +59,7 @@ def comp(state_dict, cdc_dict):
                     results.append(CaseResult(state_case_id, state_row['EventName'], state_row['State'], state_row['EventDate'], "Case has different attributes between State and CDC CSV Files", "4"))
                     break
             
-            # Remove the case from the CDC dict so we don't check it again
+            # Remove the case from the CDC dict so we can track what cases are missing from the state side
             del cdc_dict[state_case_id]
 
     # If there exists cases in the CDC dictionary still, mark it as a missing case on the state side
