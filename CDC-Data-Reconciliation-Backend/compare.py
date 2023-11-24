@@ -1,4 +1,5 @@
 import csv
+import argparse
 
 class CaseResult:
     def __init__(self, caseID, eventName, state, eventDate, reason, reasonID) -> None:
@@ -13,10 +14,10 @@ class CaseResult:
 results: list[CaseResult] = []
 
 
-def get_state_dict():
+def get_state_dict(state_file):
     state_dict = {}
     # Open the state CSV file
-    with open('state.csv', newline='') as csvfile:
+    with open(state_file, newline='') as csvfile:
         # Create a CSV reader object
         reader = csv.DictReader(csvfile)
         # Loop through each row in the CSV file
@@ -29,10 +30,10 @@ def get_state_dict():
 
     return state_dict
 
-def get_cdc_dict():
+def get_cdc_dict(cdc_file):
     cdc_dict = {}
     # Open the cdc CSV file
-    with open('cdc.csv', newline='') as csvfile:
+    with open(cdc_file, newline='') as csvfile:
         # Create a CSV reader object
         reader = csv.DictReader(csvfile)
         # Loop through each row in the CSV file
@@ -68,14 +69,21 @@ def comp(state_dict, cdc_dict):
         results.append(CaseResult(cdc_case_id, cdc_row['EventName'], cdc_row['State'], cdc_row['EventDate'], "Case ID not found in State CSV File", "5"))
 
 def main():
+    parser = argparse.ArgumentParser(prog="CompareCDCAndState", description='Compare CDC and State CSV files')
+    parser.add_argument('-s', '--state', help='Local Path to State CSV file')
+    parser.add_argument('-c', '--cdc', help='Local Path to CDC CSV file')
+    parser.add_argument('-o', '--output', help='Local Path to Output CSV file')
 
-    state_dict = get_state_dict()
-    cdc_dict = get_cdc_dict()
+    args = parser.parse_args()
+
+
+    state_dict = get_state_dict(args.state)
+    cdc_dict = get_cdc_dict(args.cdc)
 
     comp(state_dict, cdc_dict)
 
     # Create Results CSV File and write the results to it
-    with open('results.csv', 'w', newline='') as csvfile:
+    with open(args.output, 'w', newline='') as csvfile:
         fieldnames = ['CaseID', 'EventName', 'State', 'EventDate', 'Reason', 'ReasonID']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
