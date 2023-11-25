@@ -47,9 +47,9 @@ export default function ManualReport() {
         <form onSubmit={handleSubmit} className='h-full'>
           <div className='flex flex-col gap-6 items-center justify-center h-full'>
             <label htmlFor='cdc_file'>Upload CDC .csv File</label>
-            <input type='file' id='cdc_file' onChange={handleStateFileChange} />
+            <input type='file' id='cdc_file' onChange={handleCDCFileChange} />
             <label htmlFor='state_file'>Upload State .csv File</label>
-            <input type='file' id='state_file' onChange={handleCDCFileChange} />
+            <input type='file' id='state_file' onChange={handleStateFileChange} />
             <button type='submit' className='bg-blue-400 text-white px-4 py-2 rounded-md hover:bg-blue-600'>
               Submit
             </button>
