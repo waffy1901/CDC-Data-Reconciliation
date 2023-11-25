@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export default function Settings() {
   return (
     <>
-      <div>Settings</div>
+      <div className='text-center mt-20'>This is the Settings Page!</div>
     </>
   )
 }

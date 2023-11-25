@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className='flex flex-col w-screen h-screen'>
       <Navbar />
-      <div className='flex-1 h-full bg-slate-100'>
+      <div className='flex-1 overflow-auto bg-slate-100'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/settings' element={<Settings />} />
